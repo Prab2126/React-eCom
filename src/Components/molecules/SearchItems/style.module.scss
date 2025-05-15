@@ -1,0 +1,24 @@
+@use "../../../scss/mixin" as *;
+
+.searchArea {
+  width: 100%;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  height: 100vh;
+  @include flex(10px, start, center, nowrap, column);
+  padding: 50px 0;
+
+  input {
+    font-size: 30px;
+    padding: 18px 26px;
+    border-radius: 10px;
+    width: 40%;
+    caret-color: #b91e1e;
+  }
+  .itemsRendering {
+    width: 50%;
+    height: 79%;
+  }
+}

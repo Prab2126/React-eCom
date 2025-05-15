@@ -1,0 +1,26 @@
+@use "../../../scss/variable" as *;
+@use "../../../scss/mixin" as *;
+@use "../../../scss/function" as *;
+@use "sass:map";
+
+.info-Visiting-Area {
+  @include flex(10px, start, center, nowrap, column);
+  * {
+    text-transform: capitalize !important;
+  }
+  .infoContaner {
+    width: 1200px;
+  }
+  .navigation {
+    @include flex(10px, space-evenly);
+    width: 100%;
+    button {
+      font-size: px-rem(20);
+      padding: 10px 0;
+      border-bottom: 1px solid black;
+    }
+  }
+  .hovering:hover {
+    color: map.get($text-colors, dark-green);
+  }
+}

@@ -1,0 +1,28 @@
+@use "../../scss/main" as *;
+@use "../../scss/mixin" as *;
+
+.cartArea {
+  padding: 10px;
+  @include flex(10px, start, center, nowrap, column);
+  height: 100vh;
+  overflow: auto;
+  .notFound {
+    justify-content: center;
+  }
+
+  & > div {
+    width: 100%;
+  }
+  .card-render {
+    @extend %default-cardRender;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+  }
+  .collapse-card-render {
+    @extend %default-collapse-cardRender;
+  }
+}
+.darkTheme {
+  background: #2d2d2d;
+  color: white;
+}

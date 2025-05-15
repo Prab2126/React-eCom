@@ -1,0 +1,14 @@
+@use "../../../scss/mixin" as *;
+@use "../../../scss/main" as *;
+
+.colored {
+  background: rgb(148, 255, 174);
+}
+
+li {
+  @extend %default-list;
+  &:first-child {
+    font-weight: bold;
+    width: 200px;
+  }
+}

@@ -1,0 +1,34 @@
+@use "../../../scss/mixin" as *;
+@use "../../../scss/function" as *;
+
+.picture-view {
+  img {
+    cursor: pointer;
+  }
+
+  @include flex(0, start, start, nowrap, column);
+  width: 386px;
+  height: 466px;
+  picture {
+    width: 100%;
+    height: 70%;
+    background: white;
+    box-shadow: inset 0 0 119px #07a7e6;
+  }
+  .images {
+    @include flex(2px);
+    width: 100%;
+    height: 114px;
+    overflow: hidden;
+    background: white;
+
+    .selected-Img {
+      box-shadow: inset 0 0 29px -7px #ff0965;
+    }
+    img {
+      flex-grow: 1;
+      box-shadow: inset 0 0 29px -7px #dd8009;
+      background: rgba(255, 155, 48, 0.31);
+    }
+  }
+}

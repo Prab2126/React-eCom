@@ -1,0 +1,66 @@
+@use "../../scss/mixin" as *;
+@use "../../scss/main" as *;
+@use "../../scss/function" as *;
+
+.All_catgory-contaner {
+  text-transform: capitalize;
+  @include flex(10px, center, start);
+  background: #e0e0e0;
+  padding: 20px;
+  aside {
+    padding: 10px 20px;
+    width: 341px;
+    @include flex(76px, center, start, nowrap, column);
+    h2 {
+      font-weight: lighter;
+    }
+    & > div,
+    & > div > * {
+      width: 100%;
+    }
+
+    .range-fitler {
+      width: 100%;
+
+      @include flex(10px, start, stretch, nowrap, column);
+      p {
+        text-align: center;
+      }
+
+      button {
+        padding: 13px 0;
+        font-weight: bold;
+        box-shadow: 0 0 14px rgb(0, 0, 0);
+        border-radius: 100px;
+      }
+    }
+    .tagsArea {
+      @include flex(20px, start, start, nowrap, column);
+      padding: 0 10px;
+      .tags {
+        @include flex(10px, start, start, wrap);
+      }
+    }
+  }
+
+  .allItems {
+    flex-grow: 2;
+    width: 1136px;
+    .card-render {
+      @extend %default-cardRender;
+      position: relative;
+    }
+    .collapse-card-render {
+      @extend %default-collapse-cardRender;
+    }
+  }
+}
+
+.darkTheme {
+  background: #2e2e2e;
+  .range-fitler {
+    button {
+      box-shadow: 0 0 14px rgb(255, 255, 255) !important;
+    }
+  }
+}

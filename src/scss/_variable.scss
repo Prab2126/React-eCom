@@ -1,0 +1,35 @@
+$basic-same-color-ton: rgb(0, 203, 184);
+
+$text-colors: (
+  dark-green: rgb(33, 200, 0),
+  light-red: rgb(255, 0, 51),
+  light-green: $basic-same-color-ton,
+  medium-gray: rgb(149, 149, 149),
+  dark-Gray: rgb(55, 55, 55),
+  light: white,
+);
+
+$btn-color: (
+  medium-gray: rgb(149, 149, 149),
+  light: white,
+);
+
+$btn-padding: (
+  page-nation: 6px,
+  cloth-size: 6px,
+  review: 6px 10px,
+  items-filter: 5px 7px,
+  some-controller: 4px,
+);
+$btn-bg: (
+  cart-page: $basic-same-color-ton,
+  price-filter: rgb(33, 33, 33),
+  items-filter: rgb(210, 210, 210),
+  submit: rgb(232, 205, 0),
+);
+
+$NavLink: (
+  sale: red,
+  not-active: gray,
+  active: black,
+);

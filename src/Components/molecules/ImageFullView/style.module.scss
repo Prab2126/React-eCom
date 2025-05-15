@@ -1,0 +1,43 @@
+@use "../../../scss/mixin" as *;
+@use "../../../scss/function" as *;
+
+.container {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: rgba(132, 205, 249, 0.22);
+  inset: 0;
+  z-index: 1000;
+  @include flex(0, space-around, center);
+  backdrop-filter: blur(10px);
+
+  button {
+    background: #ec316e;
+    width: 40px;
+    color: white;
+    aspect-ratio: 1;
+    @include flex(0, center, center);
+    border-radius: 1000px;
+    font-size: px-rem(24);
+  }
+
+  & > button {
+    scale: 1.4;
+    z-index: -1;
+    background: #06d9b1;
+  }
+  & > div {
+    height: 80%;
+    width: 533px;
+    @include flex(0, start, end, nowrap, column);
+    .close {
+      position: absolute;
+      right: 30px;
+      top: 40px;
+    }
+    img {
+      transition: all 0.1s ease;
+    }
+  }
+}

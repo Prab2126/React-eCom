@@ -1,0 +1,23 @@
+@use "../../../scss/mixin" as *;
+
+.topRated {
+  @include flex(20px);
+  border-radius: 7px;
+  & > a {
+    align-self: center;
+    color: white;
+  }
+  padding: 12px 14px;
+  width: 100%;
+  margin: 25px 0 0 0;
+
+  color: white;
+  background: linear-gradient(20deg, #4b285091, #ffa9a900);
+
+  img {
+    border-radius: 8px;
+  }
+  .details {
+    @include flex(3px, start, start, wrap, column);
+  }
+}

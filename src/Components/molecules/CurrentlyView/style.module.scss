@@ -1,0 +1,31 @@
+@use "../../../scss/mixin" as *;
+@use "../../../scss/function" as *;
+
+$simple-color: #535252;
+
+.pageTitle {
+  @include flex(15px, center, center, nowrap, column);
+  width: 100%;
+  height: 282px;
+  background: rgb(236, 236, 236);
+  padding: 76px 0;
+  h1 {
+    font-size: px-rem(32);
+  }
+
+  span,
+  h1,
+  a {
+    color: $simple-color;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+  .links-area {
+    @include flex(5px, start, center);
+    font-size: px-rem(20);
+  }
+}
+.darkTheme {
+  background: rgb(27, 27, 27);
+}

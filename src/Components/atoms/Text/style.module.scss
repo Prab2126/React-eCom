@@ -1,0 +1,92 @@
+@use "../../../scss/variable" as *;
+@use "../../../scss/function" as *;
+@use "../../../scss/mixin" as *;
+
+@use "sass:map";
+
+@mixin localColorSetter($value) {
+  color: map.get($text-colors, $value);
+}
+
+.fackPrice {
+  text-decoration: line-through 2px solid map.get($text-colors, medium-gray);
+}
+.email {
+  text-transform: none;
+}
+
+.dark-green {
+  @include localColorSetter(dark-green);
+}
+.green {
+  @include localColorSetter(light-green);
+}
+.red {
+  @include localColorSetter(light-red);
+}
+.gray {
+  @include localColorSetter(medium-gray);
+}
+.strick {
+  text-decoration: line-through 2px solid map.get($text-colors, medium-gray);
+}
+.tag {
+  color: rgb(255, 255, 255);
+  border-radius: 7px;
+  padding: 5px 12px;
+  background: map.get($text-colors, medium-gray);
+}
+
+.userIcon {
+  font-size: px-rem(35);
+}
+
+.userTitle {
+  font-size: px-rem(20);
+}
+.price {
+  font-weight: bold;
+  font-size: 18px;
+}
+.star {
+  $star-color: #ffe405;
+
+  color: $star-color;
+  letter-spacing: 3px;
+  text-shadow: 0 0 1px $star-color;
+  svg {
+    stroke-width: 1.2;
+  }
+}
+.titles {
+  font-size: 14px;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+.star-area {
+  @include flex(2px);
+}
+.darkGray {
+  line-height: 31px;
+
+  @include localColorSetter(dark-Gray);
+}
+
+.no-items {
+  position: absolute;
+  top: 50%;
+  font-size: px-rem(50);
+}
+
+p {
+  font-size: px-rem(16);
+}
+.darkTheme {
+  color: white !important;
+}
+
+.bgdarkTheme {
+  color: rgb(0, 0, 0);
+
+  background: rgb(211, 211, 211);
+}

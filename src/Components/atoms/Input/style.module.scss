@@ -1,0 +1,13 @@
+@use "../../../scss/main" as *;
+
+.textInput,
+textarea {
+  @extend %default-input;
+}
+textarea {
+  border: 2px solid blueviolet;
+  height: 60px;
+}
+
+// input[type="range"] {
+// }

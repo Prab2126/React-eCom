@@ -1,0 +1,45 @@
+@use "mixin" as *;
+@use "function" as *;
+@use "variable" as *;
+
+%default-btn {
+  color: black;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: px-rem(16);
+}
+
+%default-input {
+  padding: 5px 5px;
+  border-bottom: 2px solid $basic-same-color-ton;
+  width: 100%;
+  font-size: 1rem;
+  background: none;
+}
+
+%default-list {
+  @include flex(0, start, center);
+  overflow: hidden;
+  padding: 3px 10px;
+  height: 100px;
+  width: 100%;
+}
+
+%default-cardRender {
+  @include grid(
+    repeat(3, 1fr),
+    null,
+    20px,
+    start,
+    start,
+    space-between,
+    space-between
+  );
+
+  padding: 10px 0;
+}
+
+%default-collapse-cardRender {
+  @include grid(null, null, 20px, start, start, space-between, space-between);
+}

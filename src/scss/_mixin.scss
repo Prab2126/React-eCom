@@ -1,0 +1,51 @@
+@use "variable" as *;
+@use "sass:map";
+
+@mixin btn-style($color, $padding, $bg) {
+  @if ($color==null) {
+    color: black;
+  } @else {
+    color: map.get($btn-color, $color);
+  }
+
+  @if ($padding==null) {
+    padding: 0;
+  } @else {
+    padding: map.get($btn-padding, $padding);
+  }
+  background: map.get($btn-bg, $bg);
+}
+
+@mixin flex($gap: 0, $jc: start, $ai: start, $wrap: nowarp, $fdir: row) {
+  display: flex;
+  gap: $gap;
+  justify-content: $jc;
+  align-items: $ai;
+  flex-wrap: $wrap;
+  flex-direction: $fdir;
+}
+
+@mixin grid(
+  $gtc: 1fr,
+  $gtr: 1fr,
+  $gap: 0,
+  $ji: start,
+  $ai: start,
+  $jc: start,
+  $ac: start
+) {
+  display: grid;
+  @if ($gtc==null) {
+    grid-template-columns: 1fr;
+  } @else {
+    grid-template-columns: $gtc;
+  }
+  @if ($gtr==null) {
+    grid-auto-rows: 1fr;
+  } @else {
+    grid-template-rows: $gtr;
+  }
+  grid-gap: $gap;
+  place-content: $ac $jc;
+  place-items: $ai $ji;
+}

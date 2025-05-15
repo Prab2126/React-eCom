@@ -1,0 +1,41 @@
+@use "../../../scss/mixin" as *;
+@use "../../../scss/function" as *;
+
+.itemsNav {
+  @include flex(0, space-between, center);
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0 0 2px #860672;
+  padding: 15px 10px;
+  background: rgba(255, 255, 255, 0.636);
+  backdrop-filter: blur(10px);
+  border-radius: 5px;
+
+  select {
+    padding: 10px;
+    border-radius: 10px;
+  }
+  @at-root {
+    .changeItems {
+      @include flex(30px, start, center);
+    }
+
+    .changeItemsCatogry {
+      @include flex(10px);
+      button {
+        border-radius: 31px;
+        align-content: center;
+        background: rgba(195, 191, 201, 0.43);
+        width: 38px;
+        font-size: px-rem(21);
+        @include flex(0, center, center);
+        aspect-ratio: 1;
+      }
+    }
+  }
+}
+
+.darkTheme {
+  box-shadow: 0 0 4px #e80b9c;
+  background: #242424;
+}

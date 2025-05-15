@@ -1,0 +1,78 @@
+@use "../../scss/mixin" as *;
+@use "../../scss/function" as *;
+
+.counter {
+  $same-border: 1px solid #b1b1b1;
+
+  @include flex(0, start, stretch);
+  height: 46px;
+  width: 170px;
+  border: $same-border;
+  & > * {
+    font-weight: bold;
+    font-size: px-rem(20);
+    @include flex(0, center, center);
+    flex-grow: 1;
+  }
+
+  & > p {
+    border-left: $same-border;
+    border-right: $same-border;
+  }
+}
+
+.detailComponent {
+  @include flex(60px, start, start, nowrap, column);
+  width: 100%;
+  h1 {
+    font-weight: lighter;
+    font-size: px-rem(30);
+  }
+  .details-info {
+    @include flex(0, center);
+    width: 100%;
+  }
+  .details {
+    align-self: center;
+    width: 945px;
+    @include flex(29px, start, start);
+
+    .information {
+      @include flex(21px, start, stretch, nowrap, column);
+      button {
+        padding: 12px 0;
+      }
+
+      .qtn-carting {
+        @include flex(10px, stretch, center);
+        button {
+          flex-grow: 1;
+        }
+      }
+      .review-info {
+        @include flex(10px, start, center);
+      }
+      .description {
+        width: 450px;
+      }
+      .price {
+        @include flex(15px, start, baseline);
+        & > * {
+          font-weight: lighter;
+        }
+        .stricked {
+          font-size: px-rem(18) !important;
+        }
+      }
+    }
+  }
+}
+.darkMainTheme {
+  background: rgb(39, 39, 39);
+}
+
+.darkCounterTheme {
+  * {
+    color: white;
+  }
+}

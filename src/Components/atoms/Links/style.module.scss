@@ -1,0 +1,23 @@
+@use "../../../scss/variable" as *;
+@use "sass:map";
+
+.hover:hover {
+  text-decoration: underline 2px dotted white;
+}
+
+.darkHover:hover {
+  text-decoration: underline 2px dotted rgb(7, 7, 7);
+}
+
+.red {
+  color: map.get($NavLink, sale);
+}
+.gray {
+  color: map.get($NavLink, not-active);
+}
+.black {
+  color: map.get($NavLink, active);
+}
+.darkTheme {
+  color: white !important;
+}

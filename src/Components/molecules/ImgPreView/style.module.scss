@@ -1,0 +1,16 @@
+@use "../../../scss/mixin" as *;
+
+.imgPreview {
+  background: rgba(211, 211, 211, 0.442);
+  padding: 20px;
+  @include flex(10px, space-between, center);
+}
+.img-area {
+  @include flex(10px, start, right, nowrap, column);
+  height: 100%;
+  width: 400px;
+
+  img {
+    flex-grow: 1;
+  }
+}

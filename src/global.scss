@@ -1,0 +1,17 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+body {
+  width: 100%;
+  height: 100vh;
+}
+img {
+  object-fit: contain;
+}

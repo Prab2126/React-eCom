@@ -1,0 +1,83 @@
+@use "../../scss/mixin" as *;
+@use "../../scss/variable" as *;
+
+$light-dark: rgb(149, 149, 149);
+
+footer {
+  $light-day: rgb(73, 72, 72);
+  background: #eee;
+  text-transform: capitalize;
+  border: none;
+
+  & > div span {
+    font-weight: bold;
+  }
+
+  a:hover {
+    color: $basic-same-color-ton;
+    text-decoration-color: $basic-same-color-ton;
+  }
+
+  div > a {
+    color: $light-day;
+    text-decoration: underline 2px solid $light-day;
+    text-underline-offset: 4px;
+  }
+  div p > svg,
+  form input {
+    color: rgb(22, 22, 22);
+  }
+
+  @at-root {
+    article {
+      form {
+        @include flex(10px, start, statch);
+      }
+
+      div > h3,
+      h1 {
+        color: rgb(30, 30, 30);
+      }
+      padding: 40px 50px;
+      @include grid(repeat(5, 1fr), 1fr, 0, center);
+      & > div {
+        @include flex(10px, start, start, nowrap, column);
+      }
+    }
+  }
+
+  .bottom {
+    background: #dedede;
+
+    padding: 20px;
+    @include flex(0, center);
+    p {
+      color: black;
+    }
+  }
+}
+.darkTheme {
+  background: #333;
+
+  div p > svg,
+  form input {
+    color: white;
+  }
+
+  div > a {
+    color: $light-dark;
+    text-decoration: underline 2px solid $light-dark;
+    text-underline-offset: 4px;
+  }
+
+  div > h3,
+  h1 {
+    color: rgb(196, 196, 196);
+  }
+  .bottom {
+    background: rgb(31, 31, 31);
+    p {
+      color: $light-dark;
+    }
+  }
+}
