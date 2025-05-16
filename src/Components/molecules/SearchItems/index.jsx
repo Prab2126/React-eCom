@@ -1,13 +1,19 @@
 import { memo, useState } from "react";
 
 import Input from "../../atoms/Input";
-import Text from "../../atoms/Text";
+import ItemsAtSearch from "../ItemsAtSearch";
 
 import style from "./style.module.scss";
 
-const data = JSON.parse(localStorage.getItem("data"));
+const data = JSON.parse(localStorage.getItem("data")) ?? [];
 
-const SearchItems = () => {
+const SearchItems = (props) => {
+  const {
+    handleOnVisibleSearch = () => {},
+    handleOnRemoveSearchBox = () => {},
+    autoFocus = false,
+  } = props || {};
+
   const [searchItems, setSearchItems] = useState({ search: "", data: [] });
 
   let debounching;
@@ -30,23 +36,35 @@ const SearchItems = () => {
         return correctPattern;
       });
       setSearchItems((prev) => ({ ...prev, data: newItems }));
-    }, 500);
+    }, 450);
   };
 
-  return (
-    <div className={style.searchArea}>
-      <Input
-        onChange={handleOnSearch}
-        placeholder="Search items"
-        value={searchItems.search}
+  const searchedItems = () =>
+    searchItems?.data?.map(({ title, thumbnail, category, id } = {}) => (
+      <ItemsAtSearch
+        src={thumbnail}
+        category={category}
+        id={id}
+        key={id}
+        title={title}
       />
+    ));
 
-      <div className={style.itemsRendering}>
-        {searchItems?.data?.map((items, id) => (
-          <Text key={id}>{items.title}</Text>
-        ))}
+  return (
+    <section className={style.searchPopUp} onClick={handleOnVisibleSearch}>
+      <div className={style.searchArea}>
+        <Input
+          onChange={handleOnSearch}
+          autoFocus={autoFocus}
+          placeholder="Search items"
+          value={searchItems.search}
+        />
+
+        <div className={style.itemsRendering} onClick={handleOnRemoveSearchBox}>
+          {searchedItems()}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 export default memo(SearchItems);

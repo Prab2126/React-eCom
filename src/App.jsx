@@ -13,12 +13,16 @@ import Item_info from "./Pages/Item_info";
 
 import fetch_data from "./Utils/fetch_data";
 import routesChangeLogic from "./Utils/routesChangeLogic";
+import filterByCategory from "./Utils/filterByCategory";
 
 async function storeInLocalStorage(setState) {
   const fetchedData = await fetch_data();
   const haveToaddInLocalStorage = fetchedData?.length >= 5;
+
+  const catogryData = filterByCategory(null, fetchedData, "takeAllData");
+
   if (haveToaddInLocalStorage) {
-    const jsonData = JSON.stringify(fetchedData);
+    const jsonData = JSON.stringify(catogryData);
     localStorage.setItem("data", jsonData);
   }
   setState(true);

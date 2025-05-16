@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 
 import { IoIosSearch } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
@@ -18,6 +18,27 @@ import SearchItems from "../../Components/molecules/SearchItems";
 
 const Header = () => {
   const { state } = useProductContext();
+  const [search, setSearch] = useState(false);
+
+  const handleOnNotVisibleSearch = ({ key, ctrlKey }) => {
+    if (/\./.test(key) && ctrlKey) setSearch((prev) => !prev);
+    else if (!key) setSearch(true);
+  };
+
+  const handleOnRemoveSearchBox = ({ currentTarget, target }) => {
+    if (currentTarget !== target) setSearch(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleOnNotVisibleSearch);
+    return () => {
+      document.removeEventListener("keydown", handleOnNotVisibleSearch);
+    };
+  }, []);
+
+  function handleOnVisibleSearch({ target, currentTarget } = {}) {
+    if (target === currentTarget) setSearch(false);
+  }
 
   const { theme, setTheme, linkDarkTheme, buttonDarkTheme } = useThemeContext();
 
@@ -36,6 +57,7 @@ const Header = () => {
   const buttonRotateDarkTheme = theme ? "themeChanged" : "";
 
   const headerDarkTheme = theme ? "" : "headerDarkTheme";
+
   return (
     <>
       <header className={style[headerDarkTheme]}>
@@ -61,7 +83,10 @@ const Header = () => {
           </Links>
         </nav>
         <div className={`${style["btn-area"]} `}>
-          <Button className={buttonDarkTheme}>
+          <Button
+            className={buttonDarkTheme}
+            onClick={handleOnNotVisibleSearch}
+          >
             <IoIosSearch />
           </Button>
 
@@ -90,7 +115,13 @@ const Header = () => {
         </div>
       </header>
 
-      <SearchItems />
+      {search && (
+        <SearchItems
+          handleOnVisibleSearch={handleOnVisibleSearch}
+          handleOnRemoveSearchBox={handleOnRemoveSearchBox}
+          autoFocus={search}
+        />
+      )}
     </>
   );
 };

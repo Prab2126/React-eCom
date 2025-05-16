@@ -1,17 +1,24 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Image from "../Components/atoms/Image";
 
 import style from "../Components/molecules/ProductShowCase/style.module.scss";
 
 const useProductShow = (images, thumbnail) => {
-  const modifiyImages = useRef(images.map((src, i) => [src, i == 0]));
+  const modifiyImages = useRef();
 
-  const [img, setImg] = useState({
-    img: thumbnail,
-    dataset: 0,
-    isPreviewing: false,
-  });
+  const [img, setImg] = useState();
+  useEffect(() => {
+    modifiyImages.current = images.map((src, i) => [src, i == 0]);
+
+    setImg({
+      img: thumbnail,
+      dataset: 0,
+      isPreviewing: false,
+    });
+  }, [images]);
+
+  console.log(images, modifiyImages);
 
   const handleOnClickImgChange = ({ target } = {}) => {
     const src = target?.src;
@@ -21,7 +28,8 @@ const useProductShow = (images, thumbnail) => {
       source,
       images.indexOf(source) == dataset,
     ]);
-    setImg({ img: src, dataset });
+
+    setImg((prev) => ({ ...prev, img: src, dataset }));
 
     modifiyImages.current = isSelected;
   };

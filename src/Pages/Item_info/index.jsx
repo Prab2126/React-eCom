@@ -17,7 +17,6 @@ const Item_info = () => {
   const { currently, data } = useLoaderData();
 
   const uniqueID = useParams()?.id;
-
   const item = data.find(({ id } = {}) => id == uniqueID) ?? {};
 
   const { theme, textDarkTheme } = useThemeContext();
@@ -38,7 +37,6 @@ const Item_info = () => {
     price = 1,
     reviews = [],
   } = item;
-
   const { state, dispatch } = useProductContext() || {};
 
   const cartItems = state?.cart?.items;

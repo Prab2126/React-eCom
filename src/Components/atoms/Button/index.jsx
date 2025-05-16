@@ -10,9 +10,10 @@ const Button = (props) => {
     id = 1,
     disabled = false,
     css,
+    parentStyle = null,
   } = props || {};
 
-  const classNames = classMixer(style, className);
+  const classNames = classMixer(parentStyle ?? style, className);
 
   return (
     <button
