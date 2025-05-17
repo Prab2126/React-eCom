@@ -36,7 +36,7 @@ const useCartLogic = () => {
         category = "",
         price = 100,
         totalPrice = 1,
-        id,
+        id = null,
       } = item || {};
 
       const presentRoute = filterByCategory(category, null, "route");

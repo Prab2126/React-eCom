@@ -7,14 +7,16 @@ import { MdLightMode } from "react-icons/md";
 import { PiMoonFill } from "react-icons/pi";
 
 import useProductContext from "../../Context/Product-provider";
+import { useLogicContextProvider } from "../../Context/LogicProvider";
 import { useThemeContext } from "../../Context/ThemeProvider";
 
 import Links from "../../Components/atoms/Links";
+import ImageFullView from "../../Components/molecules/ImageFullView";
 import Logo from "../../Components/molecules/Logo";
 import Button from "../../Components/atoms/Button";
+import SearchItems from "../../Components/molecules/SearchItems";
 
 import style from "./style.module.scss";
-import SearchItems from "../../Components/molecules/SearchItems";
 
 const Header = () => {
   const { state } = useProductContext();
@@ -57,6 +59,10 @@ const Header = () => {
   const buttonRotateDarkTheme = theme ? "themeChanged" : "";
 
   const headerDarkTheme = theme ? "" : "headerDarkTheme";
+
+  const { setIsPreviewing, isPreviewing } = useLogicContextProvider();
+
+  const { imgUrl, toShow } = isPreviewing || {};
 
   return (
     <>
@@ -114,7 +120,13 @@ const Header = () => {
           </Button>
         </div>
       </header>
-
+      {
+        <ImageFullView
+          images={imgUrl}
+          isPreviewing={toShow}
+          setPreview={setIsPreviewing}
+        />
+      }
       {search && (
         <SearchItems
           handleOnVisibleSearch={handleOnVisibleSearch}

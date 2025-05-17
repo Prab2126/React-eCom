@@ -141,6 +141,7 @@ const useCatogry = (currently, data = []) => {
             description={description}
             title={title}
             key={id}
+            fromMainParent={true}
           />
         );
       })
@@ -169,7 +170,6 @@ const useCatogry = (currently, data = []) => {
     total_items,
     topItems,
     handleOnPriceFilter,
-
     theme,
     textDarkTheme,
     textBgDarkTheme,

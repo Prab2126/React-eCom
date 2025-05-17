@@ -11,6 +11,8 @@ import Button from "../../Components/atoms/Button";
 import PageNation from "../../Components/molecules/PagesNation";
 import ProductShowCase from "../../Components/molecules/ProductShowCase";
 
+import useEventAdder from "../../Hooks/useEventAdder";
+
 import style from "./style.module.scss";
 
 const Item_info = () => {
@@ -35,39 +37,28 @@ const Item_info = () => {
     thumbnail = "",
     totalPrice = 1,
     price = 1,
+
     reviews = [],
   } = item;
-  const { state, dispatch } = useProductContext() || {};
+
+  const { state } = useProductContext() || {};
+  const handleOnAllItemsClick = useEventAdder();
 
   const cartItems = state?.cart?.items;
 
-  const isCartItemsAdded = cartItems?.find((item) => item.id === id)?.isAdded;
+  const { isAdded } = cartItems?.find((item) => item.id === id) || {};
 
-  const isAddedToCart = isCartItemsAdded
+  const isAddedToCart = isAdded
     ? { title: "Remove from", className: "removeFromCart" }
     : { title: "Add to", className: "" };
-
-  const handleOnClickToAddCart = () => {
-    const haveOldItem = cartItems?.find((item) => item?.id == id);
-    if (!haveOldItem)
-      dispatch({
-        type: "ADD-TO-CART",
-        payload: { item, isAdded: !isCartItemsAdded },
-      });
-  };
-
-  const handleOnClickToRemoveCart = () => {
-    const removeItem = cartItems?.find((item) => item?.id == id);
-    dispatch({
-      type: "REMOVE-FROM-CART",
-      payload: { item: removeItem },
-    });
-  };
 
   const rated = Math.floor(rating);
 
   return (
-    <main className={`${style.detailComponent} ${style[mainTheme]}`}>
+    <main
+      onClick={handleOnAllItemsClick}
+      className={`${style.detailComponent} ${style[mainTheme]}`}
+    >
       <CurrentlyView currentlyOn={currently} currentlyItem={uniqueID} />
 
       <section className={style.details}>
@@ -114,11 +105,7 @@ const Item_info = () => {
             <Button
               className={`${Button?.class?.CART}  ${isAddedToCart.className} `}
               id={id}
-              onClick={
-                !isCartItemsAdded
-                  ? handleOnClickToAddCart
-                  : handleOnClickToRemoveCart
-              }
+              workofbtn={isAdded ? "REMOVE-FROM-CART" : "ADD-TO-CART"}
             >
               {isAddedToCart.title} Cart
             </Button>

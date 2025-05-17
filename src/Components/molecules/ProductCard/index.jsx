@@ -6,7 +6,6 @@ import { useThemeContext } from "../../../Context/ThemeProvider";
 import Image from "../../atoms/Image";
 import Text from "../../atoms/Text";
 import Button from "../../atoms/Button";
-import ImageFullView from "../ImageFullView";
 import Links from "../../atoms/Links";
 
 import useProductCardLogic from "../../../Hooks/useProductCardLogic";
@@ -18,32 +17,23 @@ const ProductCard = (props) => {
     imgUrl = null,
     expand = false,
     title = "",
-    data = [],
     id = 1,
     description = "",
     price = 20,
     pathUrl = "",
     totalPrice = 1,
     isWaitList = false,
+    fromMainParent = null,
   } = props || {};
 
   const {
     cartArea,
     card,
-    isWaitListItemsAdded,
-    isCartItemsAdded,
-    handleOnClickToRemoveCart,
     controller,
-    handleOnClickToRemoveWaitList,
     details,
-    handleOnClickToAddCart,
-    handleOnClickToAddWaitList,
     isAddedToCart,
     isAddedToWaitList,
-    setIsPreviewing,
-    isPreviewing,
-    handleOnViewNow,
-  } = useProductCardLogic(id, data, expand, style);
+  } = useProductCardLogic(id, expand, style);
 
   const { theme, textDarkTheme, linkDarkTheme, buttonDarkTheme } =
     useThemeContext();
@@ -53,6 +43,18 @@ const ProductCard = (props) => {
   const controllerDarkMod = theme ? "" : "darkBgTheme";
 
   const urlStyle = theme ? "darkHover" : "hover";
+
+  const workofbtnWaitlist = fromMainParent
+    ? "ADD-TO-WAITLIST"
+    : isAddedToWaitList
+    ? "REMOVE-FROM-WAITLIST"
+    : "ADD-TO-WAITLIST";
+  const workofbtnCart = fromMainParent
+    ? "ADD-TO-CART"
+    : isAddedToCart
+    ? "REMOVE-FROM-CART"
+    : "ADD-TO-CART";
+
   return (
     <div
       className={`${style["card-default"]} ${style[cardDarkTheme]} ${
@@ -60,30 +62,21 @@ const ProductCard = (props) => {
       }`}
     >
       <div className={style["img-preview-default"]}>
-        <ImageFullView
-          images={imgUrl}
-          // zoom={1.4}
-          isPreviewing={isPreviewing}
-          setPreview={setIsPreviewing}
-        />
         <Image src={imgUrl} />
         <div className={`${style["cartArea-default"]} ${cartArea}`}>
           <div
             className={` ${style["controller-default"]} ${style[controllerDarkMod]} ${controller}`}
           >
             <Button
+              workofbtn="search"
+              imgurl={imgUrl}
               className={`buttonHover ${buttonDarkTheme}`}
-              onClick={handleOnViewNow}
             >
               <FiSearch />
             </Button>
             <Button
+              workofbtn={workofbtnWaitlist}
               className={`buttonHover ${isAddedToWaitList} ${buttonDarkTheme} `}
-              onClick={
-                !isWaitListItemsAdded
-                  ? handleOnClickToAddWaitList
-                  : handleOnClickToRemoveWaitList
-              }
               id={id}
             >
               ♥
@@ -92,11 +85,7 @@ const ProductCard = (props) => {
           <Button
             className={`${Button?.class?.CART} ${isAddedToCart.className} `}
             id={id}
-            onClick={
-              !isCartItemsAdded
-                ? handleOnClickToAddCart
-                : handleOnClickToRemoveCart
-            }
+            workofbtn={workofbtnCart}
           >
             {isAddedToCart.title} Cart
           </Button>

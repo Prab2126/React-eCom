@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { ProductProvider } from "./Context/Product-provider";
+import LogicProvider from "./Context/LogicProvider";
 import ThemeContextProvider from "./Context/ThemeProvider";
 
 import BasicLayout from "./Layout";
@@ -71,7 +72,9 @@ const App = () => {
   return check ? (
     <ProductProvider>
       <ThemeContextProvider>
-        <RouterProvider router={routes} />
+        <LogicProvider>
+          <RouterProvider router={routes} />
+        </LogicProvider>
       </ThemeContextProvider>
     </ProductProvider>
   ) : (

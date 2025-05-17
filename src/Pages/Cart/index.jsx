@@ -5,6 +5,8 @@ import { useThemeContext } from "../../Context/ThemeProvider";
 
 import useCartLogic from "../../Hooks/useCartLogic";
 
+import useEventAdder from "../../Hooks/useEventAdder";
+
 import style from "./style.module.scss";
 
 const Cart = () => {
@@ -23,6 +25,9 @@ const Cart = () => {
   const { items_layout } = updateCatagry ?? {};
   const { theme } = useThemeContext();
   const darkBgTheme = theme ? "" : "darkTheme";
+
+  const handleOnAllItemsClick = useEventAdder();
+
   return (
     <main
       className={`${style.cartArea} ${haveItems ? style.notFound : ""} ${
@@ -39,7 +44,10 @@ const Cart = () => {
       />
 
       {haveItems ? (
-        <div className={style[`${items_layout ? "collapse-" : ""}card-render`]}>
+        <div
+          onClick={handleOnAllItemsClick}
+          className={style[`${items_layout ? "collapse-" : ""}card-render`]}
+        >
           {renderItems(cartItems)}
         </div>
       ) : (

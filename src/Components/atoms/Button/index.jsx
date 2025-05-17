@@ -7,10 +7,12 @@ const Button = (props) => {
     onClick = () => {},
     className = "",
     children = "",
-    id = 1,
+    id = null,
+    imgurl = null,
     disabled = false,
     css,
     parentStyle = null,
+    workofbtn = null,
   } = props || {};
 
   const classNames = classMixer(parentStyle ?? style, className);
@@ -19,6 +21,8 @@ const Button = (props) => {
     <button
       disabled={disabled}
       data-id={id}
+      data-workofbtn={workofbtn}
+      data-imgurl={imgurl}
       className={classNames}
       onClick={onClick}
       style={css}

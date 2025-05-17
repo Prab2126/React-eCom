@@ -18,8 +18,6 @@ const useProductShow = (images, thumbnail) => {
     });
   }, [images]);
 
-  console.log(images, modifiyImages);
-
   const handleOnClickImgChange = ({ target } = {}) => {
     const src = target?.src;
     const dataset = target?.dataset?.id;

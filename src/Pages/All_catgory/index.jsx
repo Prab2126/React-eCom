@@ -7,12 +7,16 @@ import Ad from "../../Components/molecules/Ad";
 import ItemNav from "../../Components/molecules/ItemsNav";
 import Button from "../../Components/atoms/Button";
 
+import useEventAdder from "../../Hooks/useEventAdder";
+
 import useCatogry from "../../Hooks/useCatogry";
 
 import style from "./style.module.scss";
 
 const All_catgory = () => {
   const { currently, data } = useLoaderData(); // run at onece
+
+  const handleOnAllItemsClick = useEventAdder();
 
   const {
     tags,
@@ -97,6 +101,7 @@ const All_catgory = () => {
             total_items={total_items}
           />
           <div
+            onClick={handleOnAllItemsClick}
             className={style[`${items_layout ? "collapse-" : ""}card-render`]}
           >
             {itemsRender(items)}
