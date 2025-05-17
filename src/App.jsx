@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { ProductProvider } from "./Context/Product-provider";
+import LogicProvider from "./Context/LogicProvider";
 import ThemeContextProvider from "./Context/ThemeProvider";
 
 import BasicLayout from "./Layout";
@@ -13,12 +14,16 @@ import Item_info from "./Pages/Item_info";
 
 import fetch_data from "./Utils/fetch_data";
 import routesChangeLogic from "./Utils/routesChangeLogic";
+import filterByCategory from "./Utils/filterByCategory";
 
 async function storeInLocalStorage(setState) {
   const fetchedData = await fetch_data();
   const haveToaddInLocalStorage = fetchedData?.length >= 5;
+
+  const catogryData = filterByCategory(null, fetchedData, "takeAllData");
+
   if (haveToaddInLocalStorage) {
-    const jsonData = JSON.stringify(fetchedData);
+    const jsonData = JSON.stringify(catogryData);
     localStorage.setItem("data", jsonData);
   }
   setState(true);
@@ -67,7 +72,9 @@ const App = () => {
   return check ? (
     <ProductProvider>
       <ThemeContextProvider>
-        <RouterProvider router={routes} />
+        <LogicProvider>
+          <RouterProvider router={routes} />
+        </LogicProvider>
       </ThemeContextProvider>
     </ProductProvider>
   ) : (

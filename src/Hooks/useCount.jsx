@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useCount = (props) => {
   const { maxValue = 1, intiValue = 1, defaultValue = 0 } = props || {};
   const [count, setCount] = useState(defaultValue || intiValue);
+
+  useEffect(() => {
+    setCount(defaultValue || intiValue);
+  }, [intiValue]);
 
   const handleOnPrevious = () => {
     setCount((e) => (e >= intiValue ? --e : intiValue));

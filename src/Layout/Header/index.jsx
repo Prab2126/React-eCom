@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 
 import { IoIosSearch } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
@@ -7,17 +7,40 @@ import { MdLightMode } from "react-icons/md";
 import { PiMoonFill } from "react-icons/pi";
 
 import useProductContext from "../../Context/Product-provider";
+import { useLogicContextProvider } from "../../Context/LogicProvider";
 import { useThemeContext } from "../../Context/ThemeProvider";
 
 import Links from "../../Components/atoms/Links";
+import ImageFullView from "../../Components/molecules/ImageFullView";
 import Logo from "../../Components/molecules/Logo";
 import Button from "../../Components/atoms/Button";
+import SearchItems from "../../Components/molecules/SearchItems";
 
 import style from "./style.module.scss";
-import SearchItems from "../../Components/molecules/SearchItems";
 
 const Header = () => {
   const { state } = useProductContext();
+  const [search, setSearch] = useState(false);
+
+  const handleOnNotVisibleSearch = ({ key, ctrlKey }) => {
+    if (/\./.test(key) && ctrlKey) setSearch((prev) => !prev);
+    else if (!key) setSearch(true);
+  };
+
+  const handleOnRemoveSearchBox = ({ currentTarget, target }) => {
+    if (currentTarget !== target) setSearch(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleOnNotVisibleSearch);
+    return () => {
+      document.removeEventListener("keydown", handleOnNotVisibleSearch);
+    };
+  }, []);
+
+  function handleOnVisibleSearch({ target, currentTarget } = {}) {
+    if (target === currentTarget) setSearch(false);
+  }
 
   const { theme, setTheme, linkDarkTheme, buttonDarkTheme } = useThemeContext();
 
@@ -36,6 +59,11 @@ const Header = () => {
   const buttonRotateDarkTheme = theme ? "themeChanged" : "";
 
   const headerDarkTheme = theme ? "" : "headerDarkTheme";
+
+  const { setIsPreviewing, isPreviewing } = useLogicContextProvider();
+
+  const { imgUrl, toShow } = isPreviewing || {};
+
   return (
     <>
       <header className={style[headerDarkTheme]}>
@@ -61,7 +89,10 @@ const Header = () => {
           </Links>
         </nav>
         <div className={`${style["btn-area"]} `}>
-          <Button className={buttonDarkTheme}>
+          <Button
+            className={buttonDarkTheme}
+            onClick={handleOnNotVisibleSearch}
+          >
             <IoIosSearch />
           </Button>
 
@@ -89,8 +120,20 @@ const Header = () => {
           </Button>
         </div>
       </header>
-
-      <SearchItems />
+      {
+        <ImageFullView
+          images={imgUrl}
+          isPreviewing={toShow}
+          setPreview={setIsPreviewing}
+        />
+      }
+      {search && (
+        <SearchItems
+          handleOnVisibleSearch={handleOnVisibleSearch}
+          handleOnRemoveSearchBox={handleOnRemoveSearchBox}
+          autoFocus={search}
+        />
+      )}
     </>
   );
 };

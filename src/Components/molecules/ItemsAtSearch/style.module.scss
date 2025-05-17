@@ -1,0 +1,20 @@
+@use "../SearchItems/style.module.scss" as *;
+@use "../../../scss/mixin" as *;
+
+$buttonBg: linear-gradient(25deg, #131313, #030303, #131313);
+
+.searchedCard {
+  background: $buttonBg;
+  width: 100%;
+  border-radius: $border-radius;
+
+  .redirctLink {
+    @include flex(10px, start, center);
+    padding: 7px;
+    width: 100%;
+  }
+  p,
+  img {
+    color: rgb(255, 255, 255);
+  }
+}

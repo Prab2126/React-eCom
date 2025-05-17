@@ -50,19 +50,24 @@ const reducer = (state, action) => {
         length: length >= 99 ? 99 : items.length + 1,
         items: [...items, { ...item, isAdded }],
       };
-      return { ...state, waitList: waitList };
+      return {
+        ...state,
+        waitList: waitList,
+      };
     }
 
     case "REMOVE-FROM-WAITLIST": {
       const items = state?.waitList?.items || [];
 
       const filteredItems = items.filter((stateItem) => stateItem !== item);
-
       const cartState = {
         length: filteredItems.length,
         items: [...filteredItems],
       };
-      return { ...state, waitList: cartState };
+      return {
+        ...state,
+        waitList: cartState,
+      };
     }
 
     case "CHANGE-CART-AREA": {

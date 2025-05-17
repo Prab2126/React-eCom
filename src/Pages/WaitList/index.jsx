@@ -7,6 +7,7 @@ import ProductCard from "../../Components/molecules/ProductCard";
 import Text from "../../Components/atoms/Text";
 
 import filterByCategory from "../../Utils/filterByCategory";
+import useEventAdder from "../../Hooks/useEventAdder";
 
 import style from "./style.module.scss";
 
@@ -27,7 +28,8 @@ const WaitList = () => {
         title = "",
         category = "",
         price = 100,
-        id,
+        id = null,
+
         totalPrice = 1,
       } = item || {};
 
@@ -56,6 +58,9 @@ const WaitList = () => {
 
   const { theme } = useThemeContext();
   const darkBgTheme = theme ? "" : "darkTheme";
+
+  const handleOnAllItemsClick = useEventAdder();
+
   return (
     <main
       className={`${style.waitListArea} ${haveItems ? style.notFound : ""} ${
@@ -63,7 +68,10 @@ const WaitList = () => {
       } `}
     >
       {haveItems ? (
-        <div className={style["collapse-card-render"]}>
+        <div
+          onClick={handleOnAllItemsClick}
+          className={style["collapse-card-render"]}
+        >
           {renderItems(waitList)}
         </div>
       ) : (

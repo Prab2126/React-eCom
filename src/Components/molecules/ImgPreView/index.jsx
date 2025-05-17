@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { FaArrowCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 
@@ -21,23 +21,6 @@ const ImgPreView = (props) => {
     stop_Previous_Btn,
     stop_Next_Btn,
   } = useCount(maxImg, 0);
-
-  useEffect(() => {
-    const handleOnkeyPress = ({ key } = {}) => {
-      switch (key) {
-        case "ArrowLeft":
-          handleOnPrevious();
-          break;
-
-        case "ArrowRight":
-          handleOnNext();
-          break;
-      }
-    };
-    document.addEventListener("keydown", handleOnkeyPress);
-
-    return document.removeEventListener("keydown", handleOnkeyPress);
-  }, []);
 
   const imageURL = img[count];
 

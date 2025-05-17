@@ -11,6 +11,7 @@ const InputArea = (props) => {
     onChange = () => {},
     className = "",
     required = true,
+    autoFocus = false,
     placeholder = "",
     max = 1,
     min = 0,
@@ -21,6 +22,7 @@ const InputArea = (props) => {
   return inputField === "input" ? (
     <input
       type={type}
+      autoFocus={autoFocus}
       required={required}
       placeholder={placeholder}
       value={value}
@@ -33,6 +35,7 @@ const InputArea = (props) => {
     <textarea
       value={value}
       required={required}
+      autoFocus={autoFocus}
       className={classNames}
       placeholder={placeholder}
       onChange={onChange}

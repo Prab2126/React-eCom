@@ -14,6 +14,7 @@ const fetch_data = async () => {
       price: (e.price * 84).toFixed(2),
       totalPrice: Math.floor((e?.price * 84 * 100) / e?.discountPercentage),
     }));
+
     return indianPrice;
   } catch (err) {
     return [{ title: err.message }];

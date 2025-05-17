@@ -3,7 +3,15 @@ import { useState } from "react";
 const useImageFullView = (images, setPreview, zoom = 1) => {
   const handleOnClickRemove = () => {
     setPreview((prev) =>
-      typeof prev == "object" ? { ...prev, isPreviewing: false } : false
+      prev.imgUrl
+        ? {
+            ...prev,
+            toShow: false,
+          }
+        : {
+            ...prev,
+            isPreviewing: false,
+          }
     );
   };
 

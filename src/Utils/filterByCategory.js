@@ -1,7 +1,7 @@
 const filterByCategory = (
   elementName = "none",
   items = [],
-  onlyRoute = false
+  anyCase = false
 ) => {
   const categorays = {
     electronics: ["smartphones", "laptops", "tablets", "mobile-accessories"],
@@ -20,7 +20,8 @@ const filterByCategory = (
     "beauty&personalCare": ["beauty", "skin-care", "fragrances"],
     "sports&outdoors": ["sports-accessories", "motorcycle", "vehicle"],
   };
-  if (onlyRoute === "route") {
+
+  if (anyCase === "route") {
     let routeName = "";
     for (const category in categorays) {
       const isItemPresent = categorays[category].includes(elementName);
@@ -30,6 +31,18 @@ const filterByCategory = (
       }
     }
     return routeName;
+  } else if (anyCase === "takeAllData") {
+    const newData = [];
+
+    for (const value in categorays) {
+      const isPresent = items.filter(({ category } = {}) =>
+        categorays[value].includes(category)
+      );
+
+      if (isPresent) newData.push(...isPresent);
+    }
+
+    return newData;
   } else {
     const finalData = items.filter(({ category }) =>
       categorays[elementName]?.includes(category)
