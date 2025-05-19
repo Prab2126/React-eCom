@@ -10,6 +10,8 @@ import filterByCategory from "../../Utils/filterByCategory";
 import useEventAdder from "../../Hooks/useEventAdder";
 
 import style from "./style.module.scss";
+import correctNumbering from "../../Utils/correctNumbering";
+import RealPageNation from "../../Components/molecules/RealPageNation";
 
 const WaitList = () => {
   const { data } = useLoaderData() || {};
@@ -29,7 +31,6 @@ const WaitList = () => {
         category = "",
         price = 100,
         id = null,
-
         totalPrice = 1,
       } = item || {};
 
@@ -61,24 +62,37 @@ const WaitList = () => {
 
   const handleOnAllItemsClick = useEventAdder();
 
+  const { max_count, itemLength } = correctNumbering(8, waitList.length);
+
   return (
     <main
       className={`${style.waitListArea} ${haveItems ? style.notFound : ""} ${
         style[darkBgTheme]
       } `}
     >
-      {haveItems ? (
-        <div
-          onClick={handleOnAllItemsClick}
-          className={style["collapse-card-render"]}
-        >
-          {renderItems(waitList)}
-        </div>
-      ) : (
-        <Text className="no-items" variant="h1">
-          No waitlist found
-        </Text>
-      )}
+      <RealPageNation
+        items={waitList}
+        min_count={0}
+        max_count={max_count}
+        totalLength={itemLength}
+      >
+        {(newItems) => (
+          <>
+            {haveItems ? (
+              <div
+                onClick={handleOnAllItemsClick}
+                className={style["collapse-card-render"]}
+              >
+                {renderItems(newItems)}
+              </div>
+            ) : (
+              <Text className="no-items" variant="h1">
+                No waitlist found
+              </Text>
+            )}
+          </>
+        )}
+      </RealPageNation>
     </main>
   );
 };

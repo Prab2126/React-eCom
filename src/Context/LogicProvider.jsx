@@ -21,7 +21,6 @@ const LogicProvider = ({ children }) => {
 
   function updateContext(dataset, typeOfUpdate, whichType) {
     const categoryType = typeOfUpdate.split("-").reverse()[0];
-
     const isCart =
       categoryType === "WAITLIST"
         ? waitList
@@ -32,11 +31,10 @@ const LogicProvider = ({ children }) => {
     const { id: elementID } = dataset || {};
     const { items } = isCart;
 
-    function isAddedChecker(items) {
-      const { isAdded } = items?.find((item) => item?.id == elementID) || {};
-      return { isAdded };
-    }
-    const { isAdded } = isAddedChecker(items);
+    const isAddedChecker = (items) =>
+      items?.find((item) => item?.id == elementID)?.isAdded;
+
+    const isAdded = isAddedChecker(items);
 
     const toRemove = whichType === "remove" ? items : localData;
 
@@ -47,21 +45,6 @@ const LogicProvider = ({ children }) => {
         type: typeOfUpdate,
         payload: { item: isItem, isAdded: !isAdded },
       });
-    }
-
-    switch (typeOfUpdate) {
-      case "ADD-TO-CART":
-        dataset.workofbtn = "REMOVE-FROM-CART";
-        break;
-      case "REMOVE-FROM-CART":
-        dataset.workofbtn = "ADD-TO-CART";
-        break;
-      case "ADD-TO-WAITLIST":
-        dataset.workofbtn = "REMOVE-FROM-WAITLIST";
-        break;
-      case "REMOVE-FROM-WAITLIST":
-        dataset.workofbtn = "ADD-TO-WAITLIST";
-        break;
     }
   }
 

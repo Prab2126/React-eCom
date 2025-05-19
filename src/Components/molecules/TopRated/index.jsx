@@ -8,7 +8,7 @@ import Links from "../../atoms/Links";
 import Rating from "../../molecules/Rating";
 
 import style from "./style.module.scss";
-
+import priceStructure from "../../../Utils/priceStructure";
 const TopRated = (props) => {
   const {
     img = "",
@@ -18,6 +18,8 @@ const TopRated = (props) => {
     star = 1,
   } = props || {};
   const { linkDarkTheme } = useThemeContext();
+
+  const discountPrice = priceStructure(price);
 
   return (
     <div className={style.topRated}>
@@ -30,7 +32,7 @@ const TopRated = (props) => {
             {title}
           </Links>
         </Text>
-        <Text>&#8377;{price}</Text>
+        <Text>&#8377;{discountPrice}</Text>
 
         <Rating star={star} />
       </div>

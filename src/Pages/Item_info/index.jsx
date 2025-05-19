@@ -11,6 +11,7 @@ import Button from "../../Components/atoms/Button";
 import PageNation from "../../Components/molecules/PagesNation";
 import ProductShowCase from "../../Components/molecules/ProductShowCase";
 
+import priceStructure from "../../Utils/priceStructure";
 import useEventAdder from "../../Hooks/useEventAdder";
 
 import style from "./style.module.scss";
@@ -54,6 +55,12 @@ const Item_info = () => {
 
   const rated = Math.floor(rating);
 
+  const { orginalPrice, discountPrice } = {
+    orginalPrice: priceStructure(totalPrice),
+
+    discountPrice: priceStructure(price),
+  };
+
   return (
     <main
       onClick={handleOnAllItemsClick}
@@ -77,10 +84,10 @@ const Item_info = () => {
             <Text
               className={`${Text.class.FACEPRICE} ${Text.class.GRAY} ${style.stricked} `}
             >
-              &#8377;{totalPrice}
+              &#8377;{orginalPrice}
             </Text>
             <Text variant="h2" className={Text.class.GREEN}>
-              &#8377;{price}
+              &#8377;{discountPrice}
             </Text>
           </div>
 

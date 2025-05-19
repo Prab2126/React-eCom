@@ -37,6 +37,8 @@ const useProductCardLogic = (id = 1, expand = false, style = {}) => {
     details,
     isAddedToCart,
     isAddedToWaitList,
+    isWaitListItemsAdded,
+    isCartItemsAdded,
   };
 };
 

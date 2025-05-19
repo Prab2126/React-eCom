@@ -5,11 +5,13 @@ import Text from "../../Components/atoms/Text";
 import Input from "../../Components/atoms/Input";
 import Ad from "../../Components/molecules/Ad";
 import ItemNav from "../../Components/molecules/ItemsNav";
+import RealPageNation from "../../Components/molecules/RealPageNation";
 import Button from "../../Components/atoms/Button";
 
+import priceStructure from "../../Utils/priceStructure";
 import useEventAdder from "../../Hooks/useEventAdder";
-
 import useCatogry from "../../Hooks/useCatogry";
+import correctNumbering from "../../Utils/correctNumbering";
 
 import style from "./style.module.scss";
 
@@ -44,6 +46,10 @@ const All_catgory = () => {
 
   const mainDarkTheme = theme ? "" : "darkTheme";
 
+  const filterInIndianStyle = priceStructure(price_filter);
+
+  const { max_count, itemLength } = correctNumbering(9, total_items);
+
   return Array.isArray(data) ? (
     <section>
       <CurrentlyView currentlyOn={currently} />
@@ -67,7 +73,7 @@ const All_catgory = () => {
             />
             <Text className={`${Text.class.DARKGRAY} ${textDarkTheme}`}>
               {" "}
-              price &#8377;0 --- &#8377;{price_filter}{" "}
+              price &#8377;0 --- &#8377;{filterInIndianStyle}{" "}
             </Text>
             <Button
               className={`${Button.class.PRICE_FILTER} ${buttonBgDarkTheme}`}
@@ -92,20 +98,34 @@ const All_catgory = () => {
           <Ad cover={cover} title={currently} />
         </aside>
         <div className={style.allItems}>
-          <ItemNav
-            active={items_layout}
-            onClickExpand={handleOnExpand}
-            onClickCollapse={handleOnCollapse}
-            value={items_level}
-            onChange={onChange}
-            total_items={total_items}
-          />
-          <div
-            onClick={handleOnAllItemsClick}
-            className={style[`${items_layout ? "collapse-" : ""}card-render`]}
+          <RealPageNation
+            items={items}
+            min_count={0}
+            max_count={max_count}
+            totalLength={itemLength}
           >
-            {itemsRender(items)}
-          </div>
+            {(newItems) => (
+              <>
+                <ItemNav
+                  active={items_layout}
+                  onClickExpand={handleOnExpand}
+                  onClickCollapse={handleOnCollapse}
+                  value={items_level}
+                  onChange={onChange}
+                  total_items={newItems.length}
+                />
+
+                <div
+                  onClick={handleOnAllItemsClick}
+                  className={
+                    style[`${items_layout ? "collapse-" : ""}card-render`]
+                  }
+                >
+                  {itemsRender(newItems)}
+                </div>
+              </>
+            )}
+          </RealPageNation>
         </div>
       </main>
     </section>

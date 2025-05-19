@@ -43,7 +43,7 @@ const useCatogry = (currently, data = []) => {
       topRatedItems.push(top_item);
     }
     return topRatedItems;
-  }, []);
+  }, [data]);
 
   const topRatedItem = useCallback((topItems) => {
     return topItems.map((item) => {
@@ -99,6 +99,7 @@ const useCatogry = (currently, data = []) => {
 
   const handleOnPriceFilter = (event) => {
     const { value } = event.target || {};
+
     setPrice_filter(value);
   };
 
@@ -113,6 +114,7 @@ const useCatogry = (currently, data = []) => {
   };
   useEffect(() => {
     setItems(data);
+    setPrice_filter(max_price);
   }, [data]);
 
   const itemsRender = (items) => {

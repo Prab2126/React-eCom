@@ -1,11 +1,12 @@
 import { memo } from "react";
 import { CiGrid41, CiCircleList } from "react-icons/ci";
 
+import { useThemeContext } from "../../../Context/ThemeProvider";
+
 import Text from "../../atoms/Text";
 import Button from "../../atoms/Button";
 
 import style from "./style.module.scss";
-import { useThemeContext } from "../../../Context/ThemeProvider";
 
 const fun = () => {};
 
@@ -20,7 +21,9 @@ const ItemNav = (props) => {
     value = "",
     active = false,
   } = props || {};
+
   const navDarkTheme = theme ? "" : "darkTheme";
+
   return (
     <nav className={`${style.itemsNav} ${style[navDarkTheme]}`}>
       <div className={style.changeItems}>

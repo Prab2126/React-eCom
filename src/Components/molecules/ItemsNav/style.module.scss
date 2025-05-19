@@ -5,7 +5,7 @@
   @include flex(0, space-between, center);
   width: 100%;
   margin-bottom: 10px;
-  box-shadow: 0 0 2px #860672;
+  border-bottom: #df00ff 2px solid;
   padding: 15px 10px;
   background: rgba(255, 255, 255, 0.636);
   backdrop-filter: blur(10px);
@@ -36,6 +36,5 @@
 }
 
 .darkTheme {
-  box-shadow: 0 0 4px #e80b9c;
   background: #242424;
 }
