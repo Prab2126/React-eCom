@@ -39,8 +39,12 @@ footer {
         color: rgb(30, 30, 30);
       }
       padding: 40px 50px;
-      @include grid(repeat(5, 1fr), 1fr, 0, center);
+      @include flex(60px, start, start, wrap);
+
       & > div {
+        max-width: 300px;
+        min-width: 100px;
+
         @include flex(10px, start, start, nowrap, column);
       }
     }

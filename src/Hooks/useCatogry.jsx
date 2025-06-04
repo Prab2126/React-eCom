@@ -86,6 +86,11 @@ const useCatogry = (currently, data = []) => {
 
   const [items, setItems] = useState(data);
 
+  useEffect(() => {
+    setItems(data);
+    setPrice_filter(max_price);
+  }, [max_price]);
+
   const onChangeFunction = useOnNavNameChange();
 
   const onChange = (event) => {
@@ -112,10 +117,6 @@ const useCatogry = (currently, data = []) => {
     setItems(value);
     setTempDatas({ items: [], update: true });
   };
-  useEffect(() => {
-    setItems(data);
-    setPrice_filter(max_price);
-  }, [data]);
 
   const itemsRender = (items) => {
     return items.length ? (

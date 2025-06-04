@@ -1,0 +1,10 @@
+@use "../../../scss/mixin" as *;
+
+.star-area {
+  @include flex(2px);
+}
+.ratingBox {
+  p {
+    cursor: pointer;
+  }
+}

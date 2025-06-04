@@ -38,7 +38,7 @@ const LogicProvider = ({ children }) => {
 
     const toRemove = whichType === "remove" ? items : localData;
 
-    const isItem = toRemove.find(({ id } = {}) => id == elementID);
+    const isItem = toRemove?.find(({ id } = {}) => id == elementID);
 
     if (!isAdded || whichType === "remove") {
       dispatch({

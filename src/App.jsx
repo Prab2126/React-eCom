@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { ProductProvider } from "./Context/Product-provider";
+import useProductContext from "./Context/Product-provider";
 import LogicProvider from "./Context/LogicProvider";
 import ThemeContextProvider from "./Context/ThemeProvider";
 
 import BasicLayout from "./Layout";
+import Error from "./Pages/Error";
+
+import Loader from "./Components/molecules/Loader";
 import All_catgory from "./Pages/All_catgory";
-import Text from "./Components/atoms/Text";
 import Cart from "./Pages/Cart";
 import WaitList from "./Pages/WaitList";
 import Item_info from "./Pages/Item_info";
@@ -38,11 +40,35 @@ const App = () => {
     if (!check) storeInLocalStorage(setCheck);
   }, [check]);
 
+  const { dispatch } = useProductContext() || {};
+
+  useEffect(() => {
+    const localData = JSON.parse(localStorage.getItem("data")) ?? [];
+    const waitListItems = localData?.filter((item) => item?.waitList);
+    const cartItems = localData?.filter((item) => item?.cart);
+    const someKeyAddedCart = cartItems?.map((item) => ({
+      ...item,
+      isAdded: true,
+    }));
+    const someKeyAddedWaitList = waitListItems?.map((item) => ({
+      ...item,
+      isAdded: true,
+    }));
+    dispatch({
+      type: "UPDATE-CART-AT-ONETIME",
+      payload: { item: someKeyAddedCart },
+    });
+    dispatch({
+      type: "UPDATE-WAITLIST-AT-ONETIME",
+      payload: { item: someKeyAddedWaitList },
+    });
+  }, []);
+
   const routes = createBrowserRouter([
     {
       element: <BasicLayout />,
       path: "/",
-      errorElement: <h1>Element can't be found</h1>,
+      errorElement: <Error />,
       children: [
         {
           element: <All_catgory />,
@@ -70,15 +96,13 @@ const App = () => {
     },
   ]);
   return check ? (
-    <ProductProvider>
-      <ThemeContextProvider>
-        <LogicProvider>
-          <RouterProvider router={routes} />
-        </LogicProvider>
-      </ThemeContextProvider>
-    </ProductProvider>
+    <ThemeContextProvider>
+      <LogicProvider>
+        <RouterProvider router={routes} />
+      </LogicProvider>
+    </ThemeContextProvider>
   ) : (
-    <Text variant="h1">Loading....</Text>
+    <Loader />
   );
 };
 

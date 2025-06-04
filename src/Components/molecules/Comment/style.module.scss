@@ -1,20 +1,35 @@
 @use "../../../scss/mixin" as *;
 
 .comment {
-  width: 350px;
-  min-height: 200px;
+  width: 100%;
+  min-height: 100px;
+
+  p,
+  span {
+    text-transform: none !important;
+  }
 
   padding: 5px;
   @include flex(10px);
 
   .content {
-    @include flex(10px, start, start, column);
+    @include flex(10px, start, start, nowrap, column);
+
     .user-details {
       @include flex(10px, space-between);
+      .user-Name-Date {
+        @include flex(5px);
 
-      & > div > * {
-        padding: 0 6px 0 0;
+        span {
+          padding: 0 0 0 4px;
+        }
+        & > * {
+          flex-grow: 1;
+        }
       }
+    }
+    .user-details + p {
+      line-break: anywhere;
     }
   }
 }

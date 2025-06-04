@@ -1,14 +1,22 @@
-@use "../../../scss/mixin" as *;
 @use "../../../scss/main" as *;
 
-.colored {
-  background: rgb(148, 255, 174);
+.even {
+  background: linear-gradient(10deg, #006280, #008044, #006280);
+}
+.odd {
+  background: linear-gradient(
+    10deg,
+    rgb(6, 170, 147),
+    rgb(6, 170, 16),
+    rgb(6, 170, 147)
+  );
 }
 
 li {
   @extend %default-list;
-  &:first-child {
-    font-weight: bold;
-    width: 200px;
+  border-radius: 5px;
+  color: white;
+  h4 {
+    width: 300px;
   }
 }

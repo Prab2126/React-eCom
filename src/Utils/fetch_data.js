@@ -1,3 +1,5 @@
+import priceStructure from "./priceStructure";
+
 const api = "https://dummyjson.com/products?limit=194";
 
 const fetch_data = async () => {
@@ -12,8 +14,9 @@ const fetch_data = async () => {
       ...e,
       takenItems: e.minimumOrderQuantity,
       price: (e.price * 84).toFixed(2),
-
-      totalPrice: Math.floor((e?.price * 84 * 100) / e?.discountPercentage),
+      totalPrice: priceStructure(
+        Math.floor((e?.price * 84 * 100) / e?.discountPercentage)
+      ),
     }));
 
     return indianPrice;

@@ -71,6 +71,7 @@ const useCartLogic = () => {
       state,
     });
   };
+
   return {
     changeNav,
     onChange,

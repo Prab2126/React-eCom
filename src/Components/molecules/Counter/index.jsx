@@ -9,7 +9,7 @@ const Counter = (props) => {
     maxValue = 1,
     prevSym = "-",
     nextSym = "+",
-    intiValue = 1,
+    minVal = 1,
     className = "",
     defaultValue = 0,
     children = () => {},
@@ -17,15 +17,16 @@ const Counter = (props) => {
 
   const { count, handleOnPrevious, handleOnNext } = useCount({
     maxValue,
-    intiValue,
+    minVal,
     defaultValue,
   });
 
-  const stop_Previous_Btn = count == intiValue;
+  const stop_Previous_Btn = count == minVal;
   const stop_Next_Btn = count >= maxValue;
   const notLeftVisible =
     stop_Previous_Btn && prevSym !== "-" ? "notVisible" : "";
   const notRightVisible = stop_Next_Btn && nextSym !== "+" ? "notVisible" : "";
+
   return (
     <div className={className}>
       <Button

@@ -42,6 +42,7 @@ Button.class = {
   PRICE_FILTER: "price-filter",
   NEWSLETTER_BTN: "newsletterBtn",
   ITEMS_FILTER: "items-filter",
+  STAR: "star",
 };
 
 export default Button;

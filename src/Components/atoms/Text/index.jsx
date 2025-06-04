@@ -10,18 +10,26 @@ const contantTag = {
   h5: "h5",
   h6: "h6",
   span: "span",
+  label: "label",
   p: "p",
 };
 
 const Text = (props) => {
-  const { variant = "p", children, className = "", ...rest } = props || {};
+  const {
+    variant = "p",
+    parentStyle = null,
+    children,
+    className = "",
+    secondClassName = null,
+    ...rest
+  } = props || {};
 
-  const classs = classMixer(style, className);
+  const classs = classMixer(parentStyle ?? style, className);
 
   const Tag = contantTag[variant];
 
   return (
-    <Tag {...rest} className={classs}>
+    <Tag {...rest} className={classs ?? secondClassName ?? ""}>
       {children}
     </Tag>
   );

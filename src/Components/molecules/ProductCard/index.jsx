@@ -26,9 +26,7 @@ const ProductCard = (props) => {
     isWaitList = false,
   } = props || {};
 
-  const { orginalPrice, discountPrice } = {
-    orginalPrice: priceStructure(totalPrice),
-
+  const { discountPrice } = {
     discountPrice: priceStructure(price),
   };
 
@@ -55,7 +53,6 @@ const ProductCard = (props) => {
   const workofbtnWaitlist = isWaitListItemsAdded
     ? "REMOVE-FROM-WAITLIST"
     : "ADD-TO-WAITLIST";
-
   const workofbtnCart = isCartItemsAdded ? "REMOVE-FROM-CART" : "ADD-TO-CART";
 
   return (
@@ -120,7 +117,7 @@ const ProductCard = (props) => {
             variant="span"
             className={`${Text.class.FACEPRICE} ${Text.class.GRAY} `}
           >
-            &#8377;{orginalPrice}
+            &#8377;{totalPrice}
           </Text>
 
           <Text variant="span" className={`price ${Text.class.GREEN}`}>

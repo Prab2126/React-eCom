@@ -13,6 +13,7 @@
   } @else {
     padding: map.get($btn-padding, $padding);
   }
+
   background: map.get($btn-bg, $bg);
 }
 

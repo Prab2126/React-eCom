@@ -96,9 +96,8 @@ h3 {
 
 .collapse-card {
   @include flex(10px, start, start, nowrap, column);
-  width: 300px;
+  width: 100%;
 
-  aspect-ratio: 1;
   & > div:first-child {
     width: 100%;
   }

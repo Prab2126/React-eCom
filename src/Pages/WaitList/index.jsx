@@ -1,20 +1,23 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 
 import useProductContext from "../../Context/Product-provider";
 import { useThemeContext } from "../../Context/ThemeProvider";
 
 import ProductCard from "../../Components/molecules/ProductCard";
 import Text from "../../Components/atoms/Text";
+import RealPageNation from "../../Components/molecules/RealPageNation";
+import Loader from "../../Components/molecules/Loader";
 
 import filterByCategory from "../../Utils/filterByCategory";
 import useEventAdder from "../../Hooks/useEventAdder";
+import correctNumbering from "../../Utils/correctNumbering";
 
 import style from "./style.module.scss";
-import correctNumbering from "../../Utils/correctNumbering";
-import RealPageNation from "../../Components/molecules/RealPageNation";
 
 const WaitList = () => {
   const { data } = useLoaderData() || {};
+
+  const { state: loading } = useNavigation();
 
   const { state, updateCatagry } = useProductContext();
 
@@ -64,7 +67,9 @@ const WaitList = () => {
 
   const { max_count, itemLength } = correctNumbering(8, waitList.length);
 
-  return (
+  return loading === "loading" ? (
+    <Loader />
+  ) : (
     <main
       className={`${style.waitListArea} ${haveItems ? style.notFound : ""} ${
         style[darkBgTheme]

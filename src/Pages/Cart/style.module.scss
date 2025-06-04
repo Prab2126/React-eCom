@@ -6,6 +6,27 @@
   @include flex(10px, start, center, nowrap, column);
   height: 100vh;
   overflow: auto;
+  .totalCalculatedArea {
+    background: #fddde6;
+    padding: 10px;
+    align-self: flex-start;
+    border: 1px solid #f91212;
+    @include flex(20px, center, start, nowrap, column);
+    border-radius: 5px;
+    width: 222px;
+    & > div {
+      @include flex(0, space-between);
+      width: 100%;
+    }
+    p {
+      font-weight: bold;
+    }
+  }
+
+  .totalCalculatedAreaInDark {
+    border-color: #f91212;
+    background: #6a081f;
+  }
   .notFound {
     justify-content: center;
   }
@@ -17,6 +38,9 @@
     @extend %default-cardRender;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
+    @media screen and (max-width: 1315px) {
+      // grid-template-columns: repeat(2, 1fr) !important;
+    }
   }
   .collapse-card-render {
     @extend %default-collapse-cardRender;
