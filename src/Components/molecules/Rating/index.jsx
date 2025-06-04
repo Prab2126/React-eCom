@@ -3,20 +3,29 @@ import { FaStar } from "react-icons/fa";
 
 import Text from "../../atoms/Text";
 
-const Rating = ({ star = 1 }) => {
+import style from "./style.module.scss";
+
+const demo = () => {};
+
+const Rating = ({ star = 1, onClick = demo, controlling = false }) => {
   const stars = [];
 
   for (let count = 1; count <= 5; count++) {
     stars.push(
-      <Text key={count} className={Text.class.STAR}>
+      <Text key={count} data-id={count} className={Text.class.STAR}>
         {star >= count ? <FaStar /> : <FaRegStar />}
       </Text>
     );
   }
   return (
-    <Text className="star-area" variant="h3">
+    <div
+      onClick={onClick}
+      className={`${controlling ? style["ratingBox"] : ""} ${
+        style["star-area"]
+      }`}
+    >
       {stars.map((star) => star)}
-    </Text>
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@ import { memo, useState } from "react";
 
 import Input from "../../atoms/Input";
 import ItemsAtSearch from "../ItemsAtSearch";
+import Text from "../../atoms/Text";
 
 import style from "./style.module.scss";
 
@@ -61,7 +62,20 @@ const SearchItems = (props) => {
         />
 
         <div className={style.itemsRendering} onClick={handleOnRemoveSearchBox}>
-          {searchedItems()}
+          {searchItems?.data?.length ? (
+            searchedItems()
+          ) : (
+            <Text>
+              <Text variant="span" className="highLighter">
+                ctrl
+              </Text>{" "}
+              +{" "}
+              <Text variant="span" className="highLighter">
+                .
+              </Text>{" "}
+              to open search box
+            </Text>
+          )}
         </div>
       </div>
     </section>

@@ -12,9 +12,11 @@ const InputArea = (props) => {
     className = "",
     required = true,
     autoFocus = false,
-    placeholder = "",
-    max = 1,
-    min = 0,
+    placeholder = null,
+    max = null,
+    workOfInput = null,
+    min = null,
+    id = null,
   } = props || {};
 
   const classNames = classMixer(style, className);
@@ -26,6 +28,8 @@ const InputArea = (props) => {
       required={required}
       placeholder={placeholder}
       value={value}
+      id={id}
+      data-workofinput={workOfInput}
       className={classNames}
       onChange={onChange}
       max={max}
@@ -35,6 +39,8 @@ const InputArea = (props) => {
     <textarea
       value={value}
       required={required}
+      id={id}
+      data-workofinput={workOfInput}
       autoFocus={autoFocus}
       className={classNames}
       placeholder={placeholder}

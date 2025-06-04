@@ -1,4 +1,4 @@
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigation, useParams } from "react-router-dom";
 
 import useProductContext from "../../Context/Product-provider";
 import { useThemeContext } from "../../Context/ThemeProvider";
@@ -10,13 +10,17 @@ import Rating from "../../Components/molecules/Rating";
 import Button from "../../Components/atoms/Button";
 import PageNation from "../../Components/molecules/PagesNation";
 import ProductShowCase from "../../Components/molecules/ProductShowCase";
+import Loader from "../../Components/molecules/Loader";
 
+import priceStructure from "../../Utils/priceStructure";
 import useEventAdder from "../../Hooks/useEventAdder";
 
 import style from "./style.module.scss";
 
 const Item_info = () => {
   const { currently, data } = useLoaderData();
+
+  const { state: loading } = useNavigation();
 
   const uniqueID = useParams()?.id;
   const item = data.find(({ id } = {}) => id == uniqueID) ?? {};
@@ -37,8 +41,16 @@ const Item_info = () => {
     thumbnail = "",
     totalPrice = 1,
     price = 1,
-
     reviews = [],
+    category,
+    discountPercentage,
+    brand,
+    takenItems = 1,
+    weight,
+    warrantyInformation,
+    shippingInformation,
+    availabilityStatus,
+    returnPolicy,
   } = item;
 
   const { state } = useProductContext() || {};
@@ -54,7 +66,39 @@ const Item_info = () => {
 
   const rated = Math.floor(rating);
 
-  return (
+  const discountPrice = priceStructure(price);
+
+  const renderCateogry = ["description", "additonal information", "review "];
+
+  const info = {
+    title,
+    description,
+    category,
+    discountPercentage,
+    rating,
+    stock,
+    brand,
+    weight,
+    warrantyInformation,
+    shippingInformation,
+    availabilityStatus,
+    reviews,
+    returnPolicy,
+    minimumOrderQuantity,
+    totalPrice,
+  };
+
+  const fullDetail = [];
+
+  for (const title in info)
+    fullDetail.push([
+      title,
+      Array.isArray(info[title]) ? info[title].length : info[title],
+    ]);
+
+  return loading === "loading" ? (
+    <Loader />
+  ) : (
     <main
       onClick={handleOnAllItemsClick}
       className={`${style.detailComponent} ${style[mainTheme]}`}
@@ -80,7 +124,7 @@ const Item_info = () => {
               &#8377;{totalPrice}
             </Text>
             <Text variant="h2" className={Text.class.GREEN}>
-              &#8377;{price}
+              &#8377;{discountPrice}
             </Text>
           </div>
 
@@ -95,7 +139,8 @@ const Item_info = () => {
             <Counter
               maxValue={stock}
               className={`${style.counter} ${style[counterTheme]}`}
-              intiValue={minimumOrderQuantity}
+              defaultValue={takenItems}
+              minVal={minimumOrderQuantity}
               prevSym="-"
               nextSym="+"
             >
@@ -116,8 +161,10 @@ const Item_info = () => {
       <section className={style["details-info"]}>
         <PageNation
           description={item.description}
+          id={id}
           reviews={reviews}
-          info={{}}
+          renderItems={renderCateogry}
+          info={fullDetail}
         />
       </section>
     </main>

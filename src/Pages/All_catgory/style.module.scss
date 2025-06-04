@@ -45,10 +45,17 @@
 
   .allItems {
     flex-grow: 2;
-    width: 1136px;
+    max-width: 1136px;
+    min-width: 300px;
     .card-render {
       @extend %default-cardRender;
       position: relative;
+      @media screen and (max-width: 1315px) and (min-width: 945px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media screen and (max-width: 945px) {
+        grid-template-columns: 1fr;
+      }
     }
     .collapse-card-render {
       @extend %default-collapse-cardRender;

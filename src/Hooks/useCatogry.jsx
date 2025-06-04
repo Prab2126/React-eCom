@@ -43,7 +43,7 @@ const useCatogry = (currently, data = []) => {
       topRatedItems.push(top_item);
     }
     return topRatedItems;
-  }, []);
+  }, [data]);
 
   const topRatedItem = useCallback((topItems) => {
     return topItems.map((item) => {
@@ -86,6 +86,11 @@ const useCatogry = (currently, data = []) => {
 
   const [items, setItems] = useState(data);
 
+  useEffect(() => {
+    setItems(data);
+    setPrice_filter(max_price);
+  }, [max_price]);
+
   const onChangeFunction = useOnNavNameChange();
 
   const onChange = (event) => {
@@ -99,6 +104,7 @@ const useCatogry = (currently, data = []) => {
 
   const handleOnPriceFilter = (event) => {
     const { value } = event.target || {};
+
     setPrice_filter(value);
   };
 
@@ -111,9 +117,6 @@ const useCatogry = (currently, data = []) => {
     setItems(value);
     setTempDatas({ items: [], update: true });
   };
-  useEffect(() => {
-    setItems(data);
-  }, [data]);
 
   const itemsRender = (items) => {
     return items.length ? (

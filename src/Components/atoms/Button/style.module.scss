@@ -3,9 +3,16 @@
 @use "../../../scss/main" as *;
 @use "../../../scss/mixin" as *;
 
-.page-nation {
-  @include btn-style(light, page-nation, cart-page);
+.pageNation-style {
+  padding: 12px !important;
+  background: rgb(252, 132, 4);
+  border-radius: 1000px;
 }
+
+.pageActive {
+  padding-inline: 37px !important;
+}
+
 .buttonHover:hover {
   color: $basic-same-color-ton;
 }
@@ -41,7 +48,6 @@
 
 .red {
   background: rgb(7, 173, 134) !important;
-
   color: white;
 }
 .notVisible {
@@ -62,4 +68,24 @@ button {
 .bgdarkTheme {
   background: white;
   color: black;
+}
+
+.hoverEffect:hover {
+  color: $basic-same-color-ton;
+}
+
+.activeUnderLine {
+  text-decoration: underline 4px solid #e009ff;
+  text-underline-offset: 15px;
+}
+
+.star {
+  $star-color: #ffe405;
+
+  color: $star-color;
+  letter-spacing: 3px;
+  text-shadow: 0 0 1px $star-color;
+  svg {
+    stroke-width: 1.2;
+  }
 }

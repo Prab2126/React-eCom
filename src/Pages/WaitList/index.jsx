@@ -1,18 +1,23 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 
 import useProductContext from "../../Context/Product-provider";
 import { useThemeContext } from "../../Context/ThemeProvider";
 
 import ProductCard from "../../Components/molecules/ProductCard";
 import Text from "../../Components/atoms/Text";
+import RealPageNation from "../../Components/molecules/RealPageNation";
+import Loader from "../../Components/molecules/Loader";
 
 import filterByCategory from "../../Utils/filterByCategory";
 import useEventAdder from "../../Hooks/useEventAdder";
+import correctNumbering from "../../Utils/correctNumbering";
 
 import style from "./style.module.scss";
 
 const WaitList = () => {
   const { data } = useLoaderData() || {};
+
+  const { state: loading } = useNavigation();
 
   const { state, updateCatagry } = useProductContext();
 
@@ -29,7 +34,6 @@ const WaitList = () => {
         category = "",
         price = 100,
         id = null,
-
         totalPrice = 1,
       } = item || {};
 
@@ -61,24 +65,39 @@ const WaitList = () => {
 
   const handleOnAllItemsClick = useEventAdder();
 
-  return (
+  const { max_count, itemLength } = correctNumbering(8, waitList.length);
+
+  return loading === "loading" ? (
+    <Loader />
+  ) : (
     <main
       className={`${style.waitListArea} ${haveItems ? style.notFound : ""} ${
         style[darkBgTheme]
       } `}
     >
-      {haveItems ? (
-        <div
-          onClick={handleOnAllItemsClick}
-          className={style["collapse-card-render"]}
-        >
-          {renderItems(waitList)}
-        </div>
-      ) : (
-        <Text className="no-items" variant="h1">
-          No waitlist found
-        </Text>
-      )}
+      <RealPageNation
+        items={waitList}
+        min_count={0}
+        max_count={max_count}
+        totalLength={itemLength}
+      >
+        {(newItems) => (
+          <>
+            {haveItems ? (
+              <div
+                onClick={handleOnAllItemsClick}
+                className={style["collapse-card-render"]}
+              >
+                {renderItems(newItems)}
+              </div>
+            ) : (
+              <Text className="no-items" variant="h1">
+                No waitlist found
+              </Text>
+            )}
+          </>
+        )}
+      </RealPageNation>
     </main>
   );
 };

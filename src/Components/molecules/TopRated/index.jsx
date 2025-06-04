@@ -1,14 +1,13 @@
 import { memo } from "react";
 
-import { useThemeContext } from "../../../Context/ThemeProvider";
-
 import Text from "../../atoms/Text";
 import Image from "../../atoms/Image";
 import Links from "../../atoms/Links";
 import Rating from "../../molecules/Rating";
 
-import style from "./style.module.scss";
+import priceStructure from "../../../Utils/priceStructure";
 
+import style from "./style.module.scss";
 const TopRated = (props) => {
   const {
     img = "",
@@ -17,7 +16,8 @@ const TopRated = (props) => {
     price = 0,
     star = 1,
   } = props || {};
-  const { linkDarkTheme } = useThemeContext();
+
+  const discountPrice = priceStructure(price);
 
   return (
     <div className={style.topRated}>
@@ -26,11 +26,9 @@ const TopRated = (props) => {
       </Links>
       <div className={style.details}>
         <Text variant="h4">
-          <Links className={`black ${linkDarkTheme}`} url={pathUrl}>
-            {title}
-          </Links>
+          <Links url={pathUrl}>{title}</Links>
         </Text>
-        <Text>&#8377;{price}</Text>
+        <Text>&#8377;{discountPrice}</Text>
 
         <Rating star={star} />
       </div>

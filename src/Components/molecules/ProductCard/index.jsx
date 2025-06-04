@@ -8,6 +8,7 @@ import Text from "../../atoms/Text";
 import Button from "../../atoms/Button";
 import Links from "../../atoms/Links";
 
+import priceStructure from "../../../Utils/priceStructure";
 import useProductCardLogic from "../../../Hooks/useProductCardLogic";
 
 import style from "./style.module.scss";
@@ -23,8 +24,11 @@ const ProductCard = (props) => {
     pathUrl = "",
     totalPrice = 1,
     isWaitList = false,
-    fromMainParent = null,
   } = props || {};
+
+  const { discountPrice } = {
+    discountPrice: priceStructure(price),
+  };
 
   const {
     cartArea,
@@ -33,6 +37,8 @@ const ProductCard = (props) => {
     details,
     isAddedToCart,
     isAddedToWaitList,
+    isWaitListItemsAdded,
+    isCartItemsAdded,
   } = useProductCardLogic(id, expand, style);
 
   const { theme, textDarkTheme, linkDarkTheme, buttonDarkTheme } =
@@ -44,16 +50,10 @@ const ProductCard = (props) => {
 
   const urlStyle = theme ? "darkHover" : "hover";
 
-  const workofbtnWaitlist = fromMainParent
-    ? "ADD-TO-WAITLIST"
-    : isAddedToWaitList
+  const workofbtnWaitlist = isWaitListItemsAdded
     ? "REMOVE-FROM-WAITLIST"
     : "ADD-TO-WAITLIST";
-  const workofbtnCart = fromMainParent
-    ? "ADD-TO-CART"
-    : isAddedToCart
-    ? "REMOVE-FROM-CART"
-    : "ADD-TO-CART";
+  const workofbtnCart = isCartItemsAdded ? "REMOVE-FROM-CART" : "ADD-TO-CART";
 
   return (
     <div
@@ -121,7 +121,7 @@ const ProductCard = (props) => {
           </Text>
 
           <Text variant="span" className={`price ${Text.class.GREEN}`}>
-            &#8377;{price}
+            &#8377;{discountPrice}
           </Text>
         </div>
         {(expand || isWaitList) && (

@@ -29,7 +29,7 @@ const ImgFullView = (props) => {
   return (
     isPreviewing && (
       <Counter
-        intiValue={0}
+        minVal={0}
         className={style.container}
         nextSym={<GrFormNextLink />}
         prevSym={<GrFormPreviousLink />}

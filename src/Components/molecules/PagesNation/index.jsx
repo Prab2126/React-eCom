@@ -1,26 +1,53 @@
-import { useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 import { useThemeContext } from "../../../Context/ThemeProvider";
 
 import Text from "../../atoms/Text";
 import Button from "../../atoms/Button";
+import ProductInfo from "../ProductInfo";
+import Review from "../Review";
 
 import style from "./style.module.scss";
 
 const PageNation = (props) => {
-  const { description = "w/n", reviews = [], info = {} } = props || {};
+  const {
+    description = "w/n",
+    reviews = [],
+    info = [],
+    id = null,
+    renderItems = [],
+  } = props || {};
 
-  const reviewCount = reviews.length;
+  const [category, setCategory] = useState({
+    type: "description",
+    current: 0,
+  });
 
-  const [category, setCategory] = useState("discription");
+  const [comments, setComments] = useState([...reviews]);
 
-  // const isActive = {};
+  useEffect(() => {
+    setComments([...reviews]);
+  }, [reviews]);
+
+  useEffect(() => {
+    const localData = JSON.parse(localStorage.getItem("data"));
+
+    const updateReviews = localData.map((item) =>
+      item.id == id ? { ...item, reviews: comments } : item
+    );
+
+    const itemsInString = JSON.stringify(updateReviews);
+
+    localStorage.setItem("data", itemsInString);
+  }, [comments]);
+
+  const reviewCount = comments.length;
 
   const { textDarkTheme, buttonDarkTheme } = useThemeContext();
 
   const render = (type) => {
     switch (type) {
-      case "discription":
+      case "description":
         return (
           <>
             <Text
@@ -41,43 +68,49 @@ const PageNation = (props) => {
             </Text>
           </>
         );
-      case "additonal":
-        return;
+      case "additonal": {
+        return info.map((item, index) => (
+          <ProductInfo
+            key={index}
+            index={index}
+            topic={item[0]}
+            info={item[1]}
+          />
+        ));
+      }
       case "review":
-        return;
+        return <Review comments={comments} setComments={setComments} />;
     }
   };
 
   const handleOnClickToCategory = ({ target }) => {
-    const firstLowerCase = target.textContant.split(" ")[0].toLowerCase;
-    setCategory(firstLowerCase);
+    const firstLowerCase = target.innerText.split(" ")[0].toLowerCase();
+    const id = target.dataset.id;
+    setCategory((prev) => ({ ...prev, type: firstLowerCase, current: +id }));
   };
+
+  const renderNavBtn = (items) =>
+    items.map((value, id) => {
+      const underLine = category.current === id ? "activeUnderLine" : "";
+
+      return (
+        <Button
+          key={id}
+          id={id}
+          className={` hoverEffect ${underLine} ${buttonDarkTheme}`}
+          onClick={handleOnClickToCategory}
+        >
+          {id == 2 ? `${value}(${reviewCount})` : value}
+        </Button>
+      );
+    });
 
   return (
     <div className={style["info-Visiting-Area"]}>
-      <nav className={style.navigation}>
-        <Button
-          className={`${style.hovering} ${buttonDarkTheme}`}
-          onClick={handleOnClickToCategory}
-        >
-          description
-        </Button>
-        <Button
-          className={`${style.hovering} ${buttonDarkTheme}`}
-          onClick={handleOnClickToCategory}
-        >
-          additonal information
-        </Button>
-        <Button
-          className={`${style.hovering} ${buttonDarkTheme}`}
-          onClick={handleOnClickToCategory}
-        >
-          review ({reviewCount})
-        </Button>
-      </nav>
-      <div className={style.infoContaner}>{render(category)}</div>
+      <nav className={style.navigation}>{renderNavBtn(renderItems)}</nav>
+      <div className={style.infoContaner}>{render(category.type)}</div>
     </div>
   );
 };
 
-export default PageNation;
+export default memo(PageNation);

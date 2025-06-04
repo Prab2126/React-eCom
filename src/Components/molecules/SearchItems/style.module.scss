@@ -38,11 +38,18 @@ $border-color: rgba(107, 107, 107, 0.73);
       color: $border-color;
     }
   }
+
   .itemsRendering {
     width: 100%;
     min-height: 0px;
     max-height: 300px;
     overflow: auto;
     @include flex(10px, start, start, nowrap, column);
+
+    p {
+      color: white;
+      text-align: center;
+      width: 100%;
+    }
   }
 }

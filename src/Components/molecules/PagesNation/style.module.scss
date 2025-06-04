@@ -5,19 +5,22 @@
 
 .info-Visiting-Area {
   @include flex(10px, start, center, nowrap, column);
+  margin-bottom: 100px;
   * {
     text-transform: capitalize !important;
   }
   .infoContaner {
     width: 1200px;
+    margin-top: 40px;
+    @include flex(10px, start, start, nowrap, column);
   }
   .navigation {
     @include flex(10px, space-evenly);
     width: 100%;
     button {
       font-size: px-rem(20);
+      font-weight: bold;
       padding: 10px 0;
-      border-bottom: 1px solid black;
     }
   }
   .hovering:hover {

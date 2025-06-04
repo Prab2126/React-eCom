@@ -19,27 +19,19 @@
 }
 
 %default-list {
-  @include flex(0, start, center);
+  @include flex(38px, start, center);
   overflow: hidden;
-  padding: 3px 10px;
-  height: 100px;
+  padding: 14px 14px;
+
   width: 100%;
 }
 
 %default-cardRender {
-  @include grid(
-    repeat(3, 1fr),
-    null,
-    20px,
-    start,
-    start,
-    space-between,
-    space-between
-  );
+  @include grid(repeat(3, 1fr), null, 20px);
 
   padding: 10px 0;
 }
 
 %default-collapse-cardRender {
-  @include grid(null, null, 20px, start, start, space-between, space-between);
+  @include grid(null, null, 20px);
 }

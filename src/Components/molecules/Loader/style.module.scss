@@ -1,0 +1,33 @@
+@use "../../../scss/function" as *;
+@use "../../../scss/mixin" as *;
+
+.loader {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  text-transform: uppercase;
+  inset: 0;
+  background: #212121;
+
+  @include flex(9px, center, center);
+
+  .loading {
+    width: 200px;
+    border: 20px solid #03ffd0;
+    border-bottom-color: transparent;
+    aspect-ratio: 1;
+    animation: rotate infinite 1s linear;
+    background: transparent;
+    border-radius: 1000px;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

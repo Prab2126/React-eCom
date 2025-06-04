@@ -1,4 +1,10 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 
 const ProductContext = createContext(); /// data store
 
@@ -21,6 +27,22 @@ const reducer = (state, action) => {
   const { item, isAdded } = payload || {};
 
   switch (type) {
+    case "UPDATE-CART-AT-ONETIME": {
+      const cartState = {
+        length: item.length >= 99 ? 99 : item.length,
+        items: [...item],
+      };
+      return { ...state, cart: cartState };
+    }
+
+    case "UPDATE-WAITLIST-AT-ONETIME": {
+      const waitListState = {
+        length: item.length >= 99 ? 99 : item.length,
+        items: [...item],
+      };
+      return { ...state, waitList: waitListState };
+    }
+
     case "ADD-TO-CART": {
       const length = state?.cart?.length;
       const items = state?.cart?.items;
@@ -105,6 +127,41 @@ const tempData = {
 
 export const ProductProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, preorder);
+
+  useEffect(() => {
+    const localData = JSON.parse(localStorage.getItem("data")) ?? [];
+    const { cartIds, waitListIds } = {
+      cartIds: state?.cart?.items?.map(({ id } = {}) => id),
+      waitListIds: state?.waitList?.items?.map(({ id } = {}) => id),
+    };
+
+    const allReadyPresent = localData.map(({ id } = {}) =>
+      cartIds.includes(id) && waitListIds.includes(id)
+        ? "both"
+        : cartIds.includes(id)
+        ? "cart"
+        : waitListIds.includes(id)
+        ? "waitlist"
+        : null
+    );
+
+    const modifingOriginalData = allReadyPresent.map((value, i) => {
+      switch (value) {
+        case "both":
+          return { ...localData[i], waitList: true, cart: true };
+        case "cart":
+          return { ...localData[i], cart: true, waitList: false };
+
+        case "waitlist":
+          return { ...localData[i], waitList: true, cart: false };
+        default:
+          return { ...localData[i], cart: false, waitList: false };
+      }
+    });
+
+    const stringData = JSON.stringify(modifingOriginalData);
+    localStorage.setItem("data", stringData);
+  }, [state]);
 
   const [updateCatagry, setUpdateCatagry] = useReducer(
     userTriggering,

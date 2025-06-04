@@ -11,6 +11,7 @@ const Button = (props) => {
     imgurl = null,
     disabled = false,
     css,
+    isallperest = null,
     parentStyle = null,
     workofbtn = null,
   } = props || {};
@@ -22,6 +23,7 @@ const Button = (props) => {
       disabled={disabled}
       data-id={id}
       data-workofbtn={workofbtn}
+      data-isallperest={isallperest}
       data-imgurl={imgurl}
       className={classNames}
       onClick={onClick}
@@ -40,6 +42,7 @@ Button.class = {
   PRICE_FILTER: "price-filter",
   NEWSLETTER_BTN: "newsletterBtn",
   ITEMS_FILTER: "items-filter",
+  STAR: "star",
 };
 
 export default Button;

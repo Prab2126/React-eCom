@@ -1,0 +1,69 @@
+@use "../../../scss/mixin" as *;
+@use "../../../scss/function" as *;
+
+.reviewingArea {
+  @include flex(30px, space-between, start);
+  width: 100%;
+
+  & > * {
+    width: 50%;
+    overflow: hidden;
+  }
+
+  $sameBorder: 2px solid rgb(0, 176, 141);
+
+  .reviewAdder {
+    .describeArea {
+      width: 100%;
+      p {
+        color: #14ff00;
+        font-weight: bold;
+      }
+    }
+
+    @include flex(10px, start, start, nowrap, column);
+    textarea {
+      height: 174px;
+      resize: none;
+    }
+    textarea::placeholder,
+    input::placeholder {
+      text-transform: capitalize;
+    }
+    textarea,
+    input {
+      width: 100%;
+      text-transform: none !important;
+      padding: 10px;
+      border: $sameBorder;
+      background: transparent;
+      font-size: px-rem(16);
+    }
+
+    input {
+      border: none;
+      border-bottom: $sameBorder;
+    }
+    input + button {
+      padding: 10px;
+      &:hover {
+        background: rgb(203, 0, 143);
+      }
+    }
+  }
+  .commentsArea {
+    @include flex(20px, start, start, nowrap, column);
+  }
+}
+
+.inDarkMod {
+  input,
+  textarea,
+  input::placeholder,
+  textarea::placeholder {
+    color: white;
+    border: 1px solid white;
+  }
+
+  color: white;
+}
