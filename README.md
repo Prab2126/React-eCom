@@ -1,12 +1,49 @@
-# React + Vite
+# Install my project to see locally
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+1. First check your position    
+2. Run the cmd   
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```base
+git clone "https://github.com/Prab2126/React-eCom.git"
+```
 
-## Expanding the ESLint configuration
+**Now my project is cloned**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+ run this cmd to go inside the folder
+
+ ```base
+cd "React-eCom"
+```
+**Now install node module that imporatant to run the application**
+
+```base
+npm install
+```
+**now run the applicaton by the help of this cmd**  
+
+```base
+npm run dev
+```
+
+
+#### Feature 
+- [x] Can zoom product
+- [x] Intreactive search bar (_with debouncing_)
+- [x] Working carts
+- [x] Can add your recommended reviews (_with stars_)
+- [x] All the data is stored on device
+- [x] Working Dark mod and Light mod
+- [x] Route based website
+- [X] Filter product by price
+- [x] Filter product by (***high,low,current***)
+- [X] Working waitlist
+- [X] PageNation
+- [X] Top rated products
+- [X] Website AD
+- [x] Change Layout
+- [x] Change product value
+- [ ] Completed home page
+- [ ] Count of item
+- [ ] Error page
+- [ ] responsibe website 
